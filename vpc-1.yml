@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  "Create a network to test CloudFormation and GitHub Actions"
+  #--------------------------------------
+Parameters:
+  #  InstanceType:
+  #    Default: t2.micro
+  #     Type: String
+  #  ImageId:
+  #    Default: ami-096b7ce72fff199d6
+  #    Type: String
+  VPCName:
+    Default: VPC-Glenn
+    Type: String
+  SubnetName:
+    Default: Subnet-VPC-Glenn
+    Type: String
+
+Resources:
+  #--------------------------------------
+  # VPC
+  #--------------------------------------
+  GlennVPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      Tags:
+        - Key: Name
+          Value: !Ref VPCName
+  #--------------------------------------
+  # Subnet
+  #--------------------------------------
+  GlennSubnet01:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId:
+        Ref: GlennVPC
+      AvailabilityZone: eu-west-1a
+      CidrBlock: 10.1.1.0/24
+      Tags:
+        - Key: Name
+          Value: !Ref SubnetName
+#--------------------------------------
+# Outputs
+#--------------------------------------
+Outputs:
+  VPCId:
+    Value: !Ref GlennVPC
+    Description: "The Vpc Id Created By This Stack."
+  SubnetId:
+    Value: !Ref GlennSubnet01
+    Description: "The Subnet Id Created By This Stack."
+
+  #--------------------------------------
+  # EC2 t2.micro 1 vCPU 1 GiB RAM
+  #--------------------------------------
+  # GlennKeyPair:
+  #   Type: "AWS::EC2::KeyPair"
+  #   Properties:
+  #     KeyName:
+  # GlennInstance:
+  #   Type: "AWS::EC2::Instance"
+  #   Properties:
+  #     InstanceType: InstanceType
+  #     ImageId: ImageId
+  #     KeyName: GlennKeyPair
+
+  #======================================
