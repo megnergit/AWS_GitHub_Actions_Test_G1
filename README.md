@@ -16,8 +16,8 @@ in AWS (because it is free!).
 1. Create an IAM user for management.
 2. Edit CloudFormation template file.
 3. Test if CloudFormation works from aws cli.
-4. Edit GitHub Action deployment file
-5. Create an IAM user for the deployment.
+4. Create an IAM user for the deployment.
+5. Edit GitHub Action deployment file
 
 <!-- ------------------------------  -->
 
