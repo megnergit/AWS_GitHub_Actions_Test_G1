@@ -26,8 +26,6 @@ in AWS (because it is free!).
 
 5. Create an IAM user for the deployment.
 
-* '--profile'
-
 <!-- ------------------------------  -->
 
 ## Procedure
@@ -38,45 +36,42 @@ It is highly recommended not to use root user for testing.
 Do the following:
 
 - Create AWS Organization and invite your account. It does not cost. 
-
 - Create an admin group at IAM Identity Center
 - Create a user at IAm Identity Center and add it to teh admin group
 - Attach AdministratorRole to the group
 
-
 To ease the experiment
 
 - Download Google Authenticator to use for MFA (=multi- factor authentication)
-
 - Set up single sign on.
 
-- Log in using single sign on.
+Log in using single sign on.
 ```
 aws configure sso
 ```
-- Check if it works.
+
+Check if it works.
 ```
 aws s3 ls --profile XXXX
 ```
 
-- Set an environment variable.
+Set an environment variable.
 ```
 export AWS_PROFILE=XXXX
 ```
 
-- Check if it works (without "--profile XXXX")
+Check if it works (without "--profile XXXX")
 ```
 aws s3 ls
 ```
 
-For the security
-
-- Remove AWS Access Key and AWS Secret Access Key from root account
+For the security remove AWS Access Key and AWS Secret Access Key from
+root account
 
 
 ### Prepare CloudFormation template file
 
-We deploy VPC and Subnet.
+We will deploy VPC and Subnet.
 
 ```
 WSTemplateFormatVersion: "2010-09-09"
@@ -134,7 +129,6 @@ Outputs:
 First we will test if the template file we wrote above
 works from terminal.
 
-
 Check if the syntax is correct.
 
 ```
@@ -191,9 +185,37 @@ Check if the vpc is gone.
 All right.
 
 
-### Prepare GitHub Actions configuration file　
+### Prepare GitHub Actions workflow file. 
 
 Create ```./.github/workflows/deploy.yml```.
+
+Set up GitHub secrets here.
+
+![github-secrets](./images/github-secrets.png)
+
+Then commit the files. Check if GitHub Actions started and completed.
+
+![github-secrets](./images/github-actions-completed.png)
+
+All right.
+
+Check if the resouces are created.
+
+![vpc-3](./images/vpc-3.png)
+
+All right. Remove all resources.
+
+```
+aws cloudformation delete-stack --stack-name StackOfGlenn
+```
+
+Make sure to ***Disable** GitHub Actions.
+
+![disable-actions](./images/disable-actions.png)
+
+Otherwise, when you update README.md in the future, you will create resources by accdent.
+
+Push README.md once again and make sure no resource will be created. 
 
 
 <!-- ------------------------------  -->
