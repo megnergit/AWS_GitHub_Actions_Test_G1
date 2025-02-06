@@ -10,7 +10,6 @@ The goal is to deploy
 
 in AWS (because it is free!).
 
-
 ## Overview
 
 1. Create an IAM user for management.
@@ -71,7 +70,7 @@ WSTemplateFormatVersion: "2010-09-09"
 Description:
   "Create a network to test CloudFormation and GitHub Actions"
 
-  #--------------------------------------
+#--------------------------------------
 Parameters:
   VPCName:
     Default: VPC-Glenn
@@ -177,7 +176,6 @@ Check if the vpc is gone.
 
 All right.
 
-
 ### Create an IAM user for GitHub Actions
 
 Create an IAM user, let us say, ```github-actions-deployer``` on AWS IAM.
@@ -241,7 +239,7 @@ Then commit the files. Check if GitHub Actions started and completed.
 
 All right.
 
-Check if the resouces are created.
+Check if the resources are created.
 
 ![vpc-3](./images/vpc-3.png)
 
@@ -255,7 +253,7 @@ Make sure to ***Disable** GitHub Actions.
 
 ![disable-actions](./images/disable-actions.png)
 
-Otherwise, when you update README.md in the future, you will create resources by accdent.
+Otherwise, when you update README.md in the future, you will create resources by accident.
 
 Push README.md once again and make sure no resource will be created. 
 
