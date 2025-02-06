@@ -14,16 +14,9 @@ in AWS (because it is free!).
 ## Overview
 
 1. Create an IAM user for management.
-   - Set up authentication app for single sign-on.
-   - Log in from aws cli.
-   
 2. Edit CloudFormation template file.
-
 3. Test if CloudFormation works from aws cli.
-
 4. Edit GitHub Action deployment file
-   - set up a new GitHub repo. 
-
 5. Create an IAM user for the deployment.
 
 <!-- ------------------------------  -->
@@ -184,6 +177,55 @@ Check if the vpc is gone.
 
 All right.
 
+
+### Create an IAM user for GitHub Actions
+
+Create an IAM user, let us say, ```github-actions-deployer``` on AWS IAM.
+This time we do not need to use Identity Center, as it is not a human user.
+
+Give this much of permissions.
+
+```
+		{
+			"Effect": "Allow",
+			"Action": [
+				"logs:CreateLogGroup",
+				"logs:CreateLogStream",
+				"logs:PutLogEvents"
+			],
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"cloudformation:CreateStack",
+				"cloudformation:UpdateStack",
+				"cloudformation:DeleteStack",
+				"cloudformation:DescribeStacks",
+				"cloudformation:GetTemplate",
+				"cloudformation:GetTemplateSummary",
+				"cloudformation:CreateChangeSet",
+				"cloudformation:ExecuteChangeSet",
+				"cloudformation:ListChangeSets"
+			],
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"ec2:CreateVpc",
+				"ec2:DescribeVpcs",
+				"ec2:DeleteVpc",
+				"ec2:CreateSubnet",
+				"ec2:DescribeSubnets",
+				"ec2:DeleteSubnet",
+				"ec2:DescribeRouteTables",
+				"ec2:AssociateRouteTable",
+				"ec2:ModifyVpcAttribute"
+			],
+			"Resource": "*"
+		}
+```		
 
 ### Prepare GitHub Actions workflow file. 
 
